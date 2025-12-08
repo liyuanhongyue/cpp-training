@@ -17,12 +17,5 @@ public:
 
 private:
     PoseHandler pose_handler;
-
-public:
-    void Move(void) noexcept;
-    void TurnLeft(void) noexcept;
-    void TurnRight(void) noexcept;
-    void Fast(void) noexcept;
-    bool IsFastMode(void) const noexcept;
 };
 }  // namespace adas
