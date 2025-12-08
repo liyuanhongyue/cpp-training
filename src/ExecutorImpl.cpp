@@ -27,6 +27,32 @@ void ExecutorImpl::Execute(const std::string& commands) noexcept
             } else if (pose.direction == 'S') {
                 --pose.y;
             }
+        } else if (cmd == 'L') {
+            if (pose.direction == 'E') {
+                pose.direction = 'N';
+
+            } else if (pose.direction == 'N') {
+                pose.direction = 'W';
+
+            } else if (pose.direction == 'W') {
+                pose.direction = 'S';
+
+            } else if (pose.direction == 'S') {
+                pose.direction = 'E';
+            }
+        } else if (cmd == 'R') {
+            if (pose.direction == 'E') {
+                pose.direction = 'S';
+
+            } else if (pose.direction == 'S') {
+                pose.direction = 'W';
+
+            } else if (pose.direction == 'W') {
+                pose.direction = 'N';
+
+            } else if (pose.direction == 'N') {
+                pose.direction = 'E';
+            }
         }
     }
 }
