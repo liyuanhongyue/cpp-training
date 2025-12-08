@@ -16,9 +16,13 @@ public:
 
 private:
     Pose pose;
+    bool fast_mode{false};
+
     void Move(void) noexcept;
     void TurnLeft(void) noexcept;
     void TurnRight(void) noexcept;
+    void Fast(void) noexcept;
+    bool IsFastMode(void) const noexcept;
 
     class ICommand
     {
@@ -31,6 +35,10 @@ private:
     public:
         void DoOperate(ExecutorImpl& executor) const noexcept override
         {
+            if (executor.IsFastMode()) {
+                executor.Move();
+                executor.Fast();  // 清除快速模式
+            }
             executor.Move();
         }
     };
@@ -39,6 +47,10 @@ private:
     public:
         void DoOperate(ExecutorImpl& executor) const noexcept override
         {
+            if (executor.IsFastMode()) {
+                executor.Move();
+                executor.Fast();  // 清除快速模式
+            }
             executor.TurnLeft();
         }
     };
@@ -47,7 +59,19 @@ private:
     public:
         void DoOperate(ExecutorImpl& executor) const noexcept override
         {
+            if (executor.IsFastMode()) {
+                executor.Move();
+                executor.Fast();  // 清除快速模式
+            }
             executor.TurnRight();
+        }
+    };
+    class FastCommand final : public ICommand
+    {
+    public:
+        void DoOperate(ExecutorImpl& executor) const noexcept override
+        {
+            executor.Fast();
         }
     };
 };

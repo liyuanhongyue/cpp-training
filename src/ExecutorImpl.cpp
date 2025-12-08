@@ -24,6 +24,8 @@ void ExecutorImpl::Execute(const std::string& commands) noexcept
             command = std::make_unique<TurnLeftCommand>();
         } else if (cmd == 'R') {
             command = std::make_unique<TurnRightCommand>();
+        } else if (cmd == 'F') {
+            command = std::make_unique<FastCommand>();
         }
 
         if (command) {
@@ -83,6 +85,16 @@ void ExecutorImpl::TurnRight() noexcept
     } else if (pose.direction == 'N') {
         pose.direction = 'E';
     }
+}
+
+void ExecutorImpl::Fast() noexcept
+{
+    fast_mode = !fast_mode;
+}
+
+bool ExecutorImpl::IsFastMode() const noexcept
+{
+    return fast_mode;
 }
 
 }  // namespace adas
