@@ -20,26 +20,32 @@ private:
     void TurnLeft(void) noexcept;
     void TurnRight(void) noexcept;
 
-    class MoveCommand final
+    class ICommand
     {
     public:
-        void DoOperate(ExecutorImpl& executor) noexcept
+        virtual ~ICommand(void) = default;
+        virtual void DoOperate(ExecutorImpl& executor) const noexcept = 0;
+    };
+    class MoveCommand final : public ICommand
+    {
+    public:
+        void DoOperate(ExecutorImpl& executor) const noexcept override
         {
             executor.Move();
         }
     };
-    class TurnLeftCommand final
+    class TurnLeftCommand final : public ICommand
     {
     public:
-        void DoOperate(ExecutorImpl& executor) noexcept
+        void DoOperate(ExecutorImpl& executor) const noexcept override
         {
             executor.TurnLeft();
         }
     };
-    class TurnRightCommand final
+    class TurnRightCommand final : public ICommand
     {
     public:
-        void DoOperate(ExecutorImpl& executor) noexcept
+        void DoOperate(ExecutorImpl& executor) const noexcept override
         {
             executor.TurnRight();
         }
