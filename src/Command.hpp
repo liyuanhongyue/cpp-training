@@ -8,7 +8,8 @@ namespace adas
 class MoveCommand final
 {
 public:
-    const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         if (poseHandler.IsFastMode()) {
             poseHandler.Move();
             poseHandler.Fast();  // 清除快速模式
@@ -19,7 +20,8 @@ public:
 class TurnLeftCommand final
 {
 public:
-    const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         if (poseHandler.IsFastMode()) {
             poseHandler.Move();
             poseHandler.Fast();  // 清除快速模式
@@ -30,7 +32,8 @@ public:
 class TurnRightCommand final
 {
 public:
-    const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         if (poseHandler.IsFastMode()) {
             poseHandler.Move();
             poseHandler.Fast();  // 清除快速模式
@@ -41,7 +44,8 @@ public:
 class FastCommand final
 {
 public:
-    const std::function<void(PoseHandler& poseHandler)> operate = [](PoseHandler& poseHandler) noexcept {
+    void operator()(PoseHandler& poseHandler) const noexcept
+    {
         poseHandler.Fast();
     };
 };
