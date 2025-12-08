@@ -1,5 +1,5 @@
 #pragma once
-#include "ExecutorImpl.hpp"
+#include "PoseHandler.hpp"
 
 namespace adas
 {
@@ -7,50 +7,50 @@ class ICommand
 {
 public:
     virtual ~ICommand(void) = default;
-    virtual void DoOperate(ExecutorImpl& executor) const noexcept = 0;
+    virtual void DoOperate(PoseHandler& poseHandler) const noexcept = 0;
 };
 class MoveCommand final : public ICommand
 {
 public:
-    void DoOperate(ExecutorImpl& executor) const noexcept override
+    void DoOperate(PoseHandler& poseHandler) const noexcept override
     {
-        if (executor.IsFastMode()) {
-            executor.Move();
-            executor.Fast();  // 清除快速模式
+        if (poseHandler.IsFastMode()) {
+            poseHandler.Move();
+            poseHandler.Fast();  // 清除快速模式
         }
-        executor.Move();
+        poseHandler.Move();
     }
 };
 class TurnLeftCommand final : public ICommand
 {
 public:
-    void DoOperate(ExecutorImpl& executor) const noexcept override
+    void DoOperate(PoseHandler& poseHandler) const noexcept override
     {
-        if (executor.IsFastMode()) {
-            executor.Move();
-            executor.Fast();  // 清除快速模式
+        if (poseHandler.IsFastMode()) {
+            poseHandler.Move();
+            poseHandler.Fast();  // 清除快速模式
         }
-        executor.TurnLeft();
+        poseHandler.TurnLeft();
     }
 };
 class TurnRightCommand final : public ICommand
 {
 public:
-    void DoOperate(ExecutorImpl& executor) const noexcept override
+    void DoOperate(PoseHandler& poseHandler) const noexcept override
     {
-        if (executor.IsFastMode()) {
-            executor.Move();
-            executor.Fast();  // 清除快速模式
+        if (poseHandler.IsFastMode()) {
+            poseHandler.Move();
+            poseHandler.Fast();  // 清除快速模式
         }
-        executor.TurnRight();
+        poseHandler.TurnRight();
     }
 };
 class FastCommand final : public ICommand
 {
 public:
-    void DoOperate(ExecutorImpl& executor) const noexcept override
+    void DoOperate(PoseHandler& poseHandler) const noexcept override
     {
-        executor.Fast();
+        poseHandler.Fast();
     }
 };
-}
+}  // namespace adas

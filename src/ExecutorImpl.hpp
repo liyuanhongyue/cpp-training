@@ -1,5 +1,6 @@
 #pragma once
 #include "Executor.hpp"
+#include "PoseHandler.hpp"
 
 namespace adas
 {
@@ -15,8 +16,7 @@ public:
     Pose QueryPose(void) const noexcept override;
 
 private:
-    Pose pose;
-    bool fast_mode{false};
+    PoseHandler pose_handler;
 
 public:
     void Move(void) noexcept;

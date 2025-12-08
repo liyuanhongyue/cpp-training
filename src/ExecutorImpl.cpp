@@ -11,7 +11,7 @@ Executor* Executor::New(const Pose& pose) noexcept
     return new (std::nothrow) ExecutorImpl(pose);
 }
 
-ExecutorImpl::ExecutorImpl(const Pose& pose) noexcept : pose(pose)
+ExecutorImpl::ExecutorImpl(const Pose& pose) noexcept : pose_handler(pose)
 {
 }
 
@@ -31,72 +31,14 @@ void ExecutorImpl::Execute(const std::string& commands) noexcept
         }
 
         if (command) {
-            command->DoOperate(*this);
+            command->DoOperate(pose_handler);
         }
     }
 }
 
 Pose ExecutorImpl::QueryPose(void) const noexcept
 {
-    return pose;
-}
-
-void ExecutorImpl::Move() noexcept
-{
-    if (pose.direction == 'E') {
-        ++pose.x;
-
-    } else if (pose.direction == 'W') {
-        --pose.x;
-
-    } else if (pose.direction == 'N') {
-        ++pose.y;
-
-    } else if (pose.direction == 'S') {
-        --pose.y;
-    }
-}
-
-void ExecutorImpl::TurnLeft() noexcept
-{
-    if (pose.direction == 'E') {
-        pose.direction = 'N';
-
-    } else if (pose.direction == 'N') {
-        pose.direction = 'W';
-
-    } else if (pose.direction == 'W') {
-        pose.direction = 'S';
-
-    } else if (pose.direction == 'S') {
-        pose.direction = 'E';
-    }
-}
-
-void ExecutorImpl::TurnRight() noexcept
-{
-    if (pose.direction == 'E') {
-        pose.direction = 'S';
-
-    } else if (pose.direction == 'S') {
-        pose.direction = 'W';
-
-    } else if (pose.direction == 'W') {
-        pose.direction = 'N';
-
-    } else if (pose.direction == 'N') {
-        pose.direction = 'E';
-    }
-}
-
-void ExecutorImpl::Fast() noexcept
-{
-    fast_mode = !fast_mode;
-}
-
-bool ExecutorImpl::IsFastMode() const noexcept
-{
-    return fast_mode;
+    return pose_handler.QueryPose();
 }
 
 }  // namespace adas
