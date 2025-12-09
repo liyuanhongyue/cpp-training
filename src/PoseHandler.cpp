@@ -2,44 +2,21 @@
 
 namespace adas
 {
-PoseHandler::PoseHandler(const Pose& pose) noexcept : pose(pose)
+PoseHandler::PoseHandler(const Pose& pose) noexcept
+    : point(pose.x, pose.y), facing(&Direction::GetDirection(pose.direction))
 {
 }
 void PoseHandler::Move() noexcept
 {
-    if (pose.direction == 'E') {
-        ++pose.x;
-    } else if (pose.direction == 'W') {
-        --pose.x;
-    } else if (pose.direction == 'N') {
-        ++pose.y;
-    } else if (pose.direction == 'S') {
-        --pose.y;
-    }
+    point += facing->Move();
 }
 void PoseHandler::TurnLeft() noexcept
 {
-    if (pose.direction == 'E') {
-        pose.direction = 'N';
-    } else if (pose.direction == 'N') {
-        pose.direction = 'W';
-    } else if (pose.direction == 'W') {
-        pose.direction = 'S';
-    } else if (pose.direction == 'S') {
-        pose.direction = 'E';
-    }
+    facing = &facing->LeftOne();
 }
 void PoseHandler::TurnRight() noexcept
 {
-    if (pose.direction == 'E') {
-        pose.direction = 'S';
-    } else if (pose.direction == 'S') {
-        pose.direction = 'W';
-    } else if (pose.direction == 'W') {
-        pose.direction = 'N';
-    } else if (pose.direction == 'N') {
-        pose.direction = 'E';
-    }
+    facing = &facing->RightOne();
 }
 void PoseHandler::Fast() noexcept
 {
@@ -51,6 +28,6 @@ bool PoseHandler::IsFastMode() const noexcept
 }
 Pose PoseHandler::QueryPose() const noexcept
 {
-    return pose;
+    return Pose{point.GetX(), point.GetY(), facing->GetHeading()};
 }
 }  // namespace adas

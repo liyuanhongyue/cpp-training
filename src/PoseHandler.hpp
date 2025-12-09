@@ -1,4 +1,5 @@
 #pragma once
+#include "Data.hpp"
 #include "Executor.hpp"
 
 namespace adas
@@ -18,7 +19,8 @@ public:
     Pose QueryPose(void) const noexcept;
 
 private:
-    Pose pose;
+    Point point;
+    const Direction* facing;
     bool fast_mode{false};
 };
 }  // namespace adas
