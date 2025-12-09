@@ -13,6 +13,7 @@ public:
     Point(const Point& other) noexcept;
     Point& operator=(const Point& other) noexcept;
     Point& operator+=(const Point& other) noexcept;
+    Point& operator-=(const Point& other) noexcept;
 
     int GetX(void) const noexcept;
     int GetY(void) const noexcept;

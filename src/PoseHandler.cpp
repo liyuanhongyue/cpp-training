@@ -10,6 +10,10 @@ void PoseHandler::Move() noexcept
 {
     point += facing->Move();
 }
+void PoseHandler::Backward() noexcept
+{
+    point -= facing->Move();
+}
 void PoseHandler::TurnLeft() noexcept
 {
     facing = &facing->LeftOne();
@@ -25,6 +29,14 @@ void PoseHandler::Fast() noexcept
 bool PoseHandler::IsFastMode() const noexcept
 {
     return fast_mode;
+}
+void PoseHandler::Reverse() noexcept
+{
+    reverse_mode = !reverse_mode;
+}
+bool PoseHandler::IsReverseMode() const noexcept
+{
+    return reverse_mode;
 }
 Pose PoseHandler::QueryPose() const noexcept
 {

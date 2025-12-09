@@ -21,6 +21,12 @@ Point& Point::operator+=(const Point& other) noexcept
     y += other.y;
     return *this;
 }
+Point& Point::operator-=(const Point& other) noexcept
+{
+    x -= other.x;
+    y -= other.y;
+    return *this;
+}
 int Point::GetX(void) const noexcept
 {
     return x;
