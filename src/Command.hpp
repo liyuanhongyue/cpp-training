@@ -15,7 +15,7 @@ public:
             poseHandler.Fast();  // 清除快速模式
         }
         poseHandler.Move();
-    };
+    }
 };
 class TurnLeftCommand final
 {
@@ -27,7 +27,7 @@ public:
             poseHandler.Fast();  // 清除快速模式
         }
         poseHandler.TurnLeft();
-    };
+    }
 };
 class TurnRightCommand final
 {
@@ -39,7 +39,7 @@ public:
             poseHandler.Fast();  // 清除快速模式
         }
         poseHandler.TurnRight();
-    };
+    }
 };
 class FastCommand final
 {
@@ -47,6 +47,6 @@ public:
     void operator()(PoseHandler& poseHandler) const noexcept
     {
         poseHandler.Fast();
-    };
+    }
 };
 }  // namespace adas
