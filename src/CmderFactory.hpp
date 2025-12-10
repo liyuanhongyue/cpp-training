@@ -8,6 +8,8 @@
 
 namespace adas
 {
+using Cmder = std::function<void(PoseHandler& poseHandler)>;
+using CmderList = std::list<Cmder>;
 class CmderFactory final
 {
 public:
@@ -16,10 +18,10 @@ public:
     CmderFactory(const CmderFactory&) noexcept = delete;
     CmderFactory& operator=(const CmderFactory&) noexcept = delete;
 
-    std::list<std::function<void(PoseHandler&)>> GetCmders(const std::string& commands) const noexcept;
+    CmderList GetCmders(const std::string& commands) const noexcept;
 
 private:
-    const std::unordered_map<char, std::function<void(PoseHandler&)>> command_map{
+    const std::unordered_map<char, Cmder> command_map{
         {'M', MoveCommand()}, {'L', TurnLeftCommand()}, {'R', TurnRightCommand()},
         {'F', FastCommand()}, {'B', ReverseCommand()},
     };
