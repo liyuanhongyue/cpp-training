@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <list>
+#include <string_view>
 #include <unordered_map>
 
 #include "ActionGroup.hpp"
@@ -24,7 +25,9 @@ public:
 private:
     const std::unordered_map<char, Cmder> command_map{
         {'M', MoveCommand()}, {'L', TurnLeftCommand()}, {'R', TurnRightCommand()},
-        {'F', FastCommand()}, {'B', ReverseCommand()},
+        {'F', FastCommand()}, {'B', ReverseCommand()},  {'Z', TurnRoundCommand()},
     };
+    std::string ParseCommandString(std::string_view commands) const noexcept;
+    void ReplaceAll(std::string& inout, std::string_view what, std::string_view with) const noexcept;
 };
 }  // namespace adas

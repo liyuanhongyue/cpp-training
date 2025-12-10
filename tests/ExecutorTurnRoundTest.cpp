@@ -5,7 +5,7 @@
 
 namespace adas
 {
-TEST(ExecutorTurnRoundTest, should_normal_tr_build_left_forward_left_forward)
+TEST(ExecutorTurnRoundTest, should_normal_tr_build_left_forward_left)
 {
     // given
     std::unique_ptr<Executor> executor(Executor::New({0, 0, 'E'}));
