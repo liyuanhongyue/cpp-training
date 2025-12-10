@@ -6,7 +6,7 @@ PoseHandler::PoseHandler(const Pose& pose) noexcept
     : point(pose.x, pose.y), facing(&Direction::GetDirection(pose.direction))
 {
 }
-void PoseHandler::Move() noexcept
+void PoseHandler::Forward() noexcept
 {
     point += facing->Move();
 }
@@ -21,6 +21,14 @@ void PoseHandler::TurnLeft() noexcept
 void PoseHandler::TurnRight() noexcept
 {
     facing = &facing->RightOne();
+}
+void PoseHandler::ReverseTurnLeft() noexcept
+{
+    facing = &facing->RightOne();
+}
+void PoseHandler::ReverseTurnRight() noexcept
+{
+    facing = &facing->LeftOne();
 }
 void PoseHandler::Fast() noexcept
 {

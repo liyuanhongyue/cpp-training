@@ -11,10 +11,12 @@ public:
     PoseHandler(const PoseHandler&) = delete;
     PoseHandler& operator=(const PoseHandler&) = delete;
 
-    void Move(void) noexcept;
+    void Forward(void) noexcept;
     void Backward(void) noexcept;
     void TurnLeft(void) noexcept;
     void TurnRight(void) noexcept;
+    void ReverseTurnLeft(void) noexcept;
+    void ReverseTurnRight(void) noexcept;
     void Fast(void) noexcept;
     bool IsFastMode(void) const noexcept;
     void Reverse(void) noexcept;

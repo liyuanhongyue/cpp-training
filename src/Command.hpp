@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 
+#include "ActionGroup.hpp"
 #include "PoseHandler.hpp"
 
 namespace adas
@@ -8,78 +9,70 @@ namespace adas
 class MoveCommand final
 {
 public:
-    void operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
     {
+        ActionGroup actionGroup;
+        const auto action =
+            poseHandler.IsReverseMode() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
         if (poseHandler.IsFastMode()) {
-            if (poseHandler.IsReverseMode()) {
-                poseHandler.Backward();
-            } else {
-                poseHandler.Move();
-            }
-            // poseHandler.Fast();  // 清除快速模式
+            actionGroup.PushAction(action);
         }
-        if (poseHandler.IsReverseMode()) {
-            poseHandler.Backward();
-
-        } else {
-            poseHandler.Move();
-        }
+        actionGroup.PushAction(action);
+        return actionGroup;
     }
 };
 class TurnLeftCommand final
 {
 public:
-    void operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
     {
+        ActionGroup actionGroup;
         if (poseHandler.IsFastMode()) {
-            if (poseHandler.IsReverseMode()) {
-                poseHandler.Backward();
-            } else {
-                poseHandler.Move();
-            }
-            // poseHandler.Fast();  // 清除快速模式
+            const auto action =
+                poseHandler.IsReverseMode() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
+            actionGroup.PushAction(action);
         }
-        if (poseHandler.IsReverseMode()) {
-            poseHandler.TurnRight();
-        } else {
-            poseHandler.TurnLeft();
-        }
+        const auto action =
+            poseHandler.IsReverseMode() ? ActionType::REVERSE_TURNLEFT_ACTION : ActionType::TRUNLEFT_ACTION;
+        actionGroup.PushAction(action);
+        return actionGroup;
     }
 };
 class TurnRightCommand final
 {
 public:
-    void operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
     {
+        ActionGroup actionGroup;
         if (poseHandler.IsFastMode()) {
-            if (poseHandler.IsReverseMode()) {
-                poseHandler.Backward();
-            } else {
-                poseHandler.Move();
-            }
-            // poseHandler.Fast();  // 清除快速模式
+            const auto action =
+                poseHandler.IsReverseMode() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
+            actionGroup.PushAction(action);
         }
-        if (poseHandler.IsReverseMode()) {
-            poseHandler.TurnLeft();
-        } else {
-            poseHandler.TurnRight();
-        }
+        const auto action =
+            poseHandler.IsReverseMode() ? ActionType::REVERSE_TURNRIGHT_ACTION : ActionType::TURNRIGHT_ACTION;
+        actionGroup.PushAction(action);
+        return actionGroup;
     }
 };
 class FastCommand final
 {
 public:
-    void operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
     {
-        poseHandler.Fast();
+        ActionGroup actionGroup;
+        actionGroup.PushAction(ActionType::BE_FAST_ACTION);
+        return actionGroup;
     }
 };
 class ReverseCommand final
 {
 public:
-    void operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
     {
-        poseHandler.Reverse();
+        ActionGroup actionGroup;
+        actionGroup.PushAction(ActionType::BE_REVERSE_ACTION);
+        return actionGroup;
     }
 };
 }  // namespace adas
