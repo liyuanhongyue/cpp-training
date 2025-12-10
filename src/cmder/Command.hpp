@@ -38,6 +38,11 @@ public:
                 poseHandler.IsReverseMode() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
             actionGroup.PushAction(action);
         }
+        if (carType == CarType::Bus) {
+            const auto action =
+                poseHandler.IsReverseMode() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
+            actionGroup.PushAction(action);
+        }
         const auto action =
             poseHandler.IsReverseMode() ? ActionType::REVERSE_TURNLEFT_ACTION : ActionType::TRUNLEFT_ACTION;
         actionGroup.PushAction(action);
@@ -56,6 +61,11 @@ public:
     {
         ActionGroup actionGroup;
         if (poseHandler.IsFastMode()) {
+            const auto action =
+                poseHandler.IsReverseMode() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
+            actionGroup.PushAction(action);
+        }
+        if (carType == CarType::Bus) {
             const auto action =
                 poseHandler.IsReverseMode() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
             actionGroup.PushAction(action);
