@@ -7,7 +7,7 @@ namespace adas
 class ExecutorImpl final : public Executor
 {
 public:
-    explicit ExecutorImpl(const Pose& pose) noexcept;
+    explicit ExecutorImpl(const Pose& pose, const CarType& car_type) noexcept;
     ~ExecutorImpl(void) override = default;
     ExecutorImpl(const ExecutorImpl&) = delete;
     ExecutorImpl& operator=(const ExecutorImpl&) = delete;
@@ -17,5 +17,6 @@ public:
 
 private:
     PoseHandler pose_handler;
+    CarType car_type;
 };
 }  // namespace adas
